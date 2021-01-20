@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      {{'buscador' | translate}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-item>
+    <ion-label position="stacked"> {{'raza' | translate}}:</ion-label>
+    <ion-select interface="action-sheet" okText="Aceptar" cancelText="Cancelar" (ionChange)="getPerros($event)"
+      [(ngModel)]="value1">
+      <ion-select-option *ngFor="let dog of dogs" [value]="dog">
+        {{dog}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item *ngIf=show>
+    <ion-label position="stacked"> {{'tipo' | translate}}:</ion-label>
+    <ion-select interface="action-sheet" okText="Aceptar" cancelText="Cancelar" (ionChange)="getTipos($event)"
+      [(ngModel)]="value2">
+      <ion-select-option *ngFor="let tipo of tipos" [value]="tipo">
+        {{tipo}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" *ngFor="let item of imageDogs">
+          <ion-img [src]="item"></ion-img>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+</ion-content>
