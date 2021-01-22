@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonContent, LoadingController, Platform, ToastController } from '@ionic/angular';
+import { IdiomasService } from '../services/idiomas.service';
 import { PerrosService } from '../services/perros.service';
 
 @Component({
@@ -15,10 +16,16 @@ export class HomePage implements OnInit {
   imageDogs: any;
   value1: string;
   value2: string;
+  goBack: boolean = false;
+  @ViewChild('IonContent') content: IonContent;
+  selectedLanguage:boolean;
 
   constructor(
     private dogsSrv: PerrosService,
+    private languagesSrv: IdiomasService,
     private toastCtrl: ToastController,
+    private loadingCtrl: LoadingController,
+    private platform: Platform,
   ) { }
 
   ngOnInit() {
@@ -28,7 +35,7 @@ export class HomePage implements OnInit {
   /**
    * carga el listado inicial de perros por raza
    */
-  getRazas() {
+  async getRazas() {
     this.dogsSrv.getDogs()
       .then((data) => {
         this.dogs = Object.keys(data.message);
@@ -42,7 +49,7 @@ export class HomePage implements OnInit {
    * muestra imagenes por raza
    * @param  {} $event
    */
-  getPerros($event) {
+  async getPerros($event) {
     let found: any[];
     this.dogsSrv.getImagesDogs($event.target.value)
       .then((res) => {
@@ -74,6 +81,33 @@ export class HomePage implements OnInit {
   }
 
   /**
+   * @param  {number} pos
+   */
+  obtieneScrollPos(pos: number) {
+    pos > this.platform.height() ? this.goBack = true : this.goBack = false;
+  }
+
+  /**
+   * Permite desplazarse a la posición inicial
+   */
+  irHaciaArriba() {
+    this.content.scrollToTop(500);
+  }
+
+  /**
+   * modifica el idioma en la app
+   * @param  {} lang
+   */
+  changeLanguage() {
+    if(this.selectedLanguage == true) {
+      this.languagesSrv.setLanguage('en'); 
+    }
+    else {
+      this.languagesSrv.setLanguage('es');
+    }
+  }
+
+    /**
    * @param  {string} msg
    * @param  {number} durationSec?
    */

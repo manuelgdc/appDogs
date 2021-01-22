@@ -1,12 +1,28 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      {{'buscador' | translate}}
-    </ion-title>
+    <ion-item lines="none">
+      <ion-title>
+        {{'buscador' | translate}}
+      </ion-title>
+    </ion-item>
+    <ion-buttons slot="end">
+      <ion-item lines="none">
+        <ion-img src="../assets/icon/spain.png"></ion-img>&nbsp;
+        <ion-toggle [(ngModel)]="selectedLanguage"  (ionChange)="changeLanguage()"></ion-toggle>
+        &nbsp;<ion-img src="../assets/icon/english.png"></ion-img>
+      </ion-item>
+    </ion-buttons>
+    
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" [scrollEvents]="true" (ionScroll)="obtieneScrollPos($event.detail.scrollTop)"
+  #IonContent>
+  <ion-fab *ngIf="goBack" (click)="irHaciaArriba()" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="light">
+      <ion-icon name="arrow-up-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
   <ion-item>
     <ion-label position="stacked"> {{'raza' | translate}}:</ion-label>
     <ion-select interface="action-sheet" okText="Aceptar" cancelText="Cancelar" (ionChange)="getPerros($event)"
@@ -28,7 +44,7 @@
   <ion-item lines="none">
     <ion-grid>
       <ion-row>
-        <ion-col size="6" *ngFor="let item of imageDogs">
+        <ion-col sizeLg="3" sizeMd="3" sizeXs="6" *ngFor="let item of imageDogs">
           <ion-img [src]="item"></ion-img>
         </ion-col>
       </ion-row>

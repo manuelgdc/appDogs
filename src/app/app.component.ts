@@ -18,8 +18,8 @@ export class AppComponent {
     private translateService: TranslateService
   ) {
     this.initializeApp();
-    this.translateService.setDefaultLang('en');
-    this.translateService.use('en'); 
+    this.translateService.setDefaultLang('es');
+    this.translateService.use('es'); 
   }
 
   initializeApp() {
