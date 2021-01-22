@@ -54,6 +54,7 @@ export class HomePage implements OnInit {
     this.dogsSrv.getImagesDogs($event.target.value)
       .then((res) => {
         this.imageDogs = res.message;
+        this.show = false;
       })
     this.dogsSrv.getDogs()
       .then((data) => {
@@ -99,12 +100,7 @@ export class HomePage implements OnInit {
    * @param  {} lang
    */
   changeLanguage() {
-    if(this.selectedLanguage == true) {
-      this.languagesSrv.setLanguage('en'); 
-    }
-    else {
-      this.languagesSrv.setLanguage('es');
-    }
+    this.selectedLanguage ?  this.languagesSrv.setLanguage('en') :  this.languagesSrv.setLanguage('es');
   }
 
     /**
@@ -117,6 +113,10 @@ export class HomePage implements OnInit {
       duration: (durationSec || 2) * 1000
     });
     toast.present();
+  }
+
+  reset() {
+    this.imageDogs = [];
   }
 
 }

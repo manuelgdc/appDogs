@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-item lines="none">
-      <ion-title>
+      <ion-title class="ion-no-padding">
         {{'buscador' | translate}}
       </ion-title>
     </ion-item>
@@ -21,6 +21,11 @@
   <ion-fab *ngIf="goBack" (click)="irHaciaArriba()" vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button color="light">
       <ion-icon name="arrow-up-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-fab  (click)="reset()" vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button color="light">
+      <ion-icon name="trash-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
   <ion-item>
